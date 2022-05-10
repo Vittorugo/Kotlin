@@ -1,0 +1,25 @@
+# curl --location --request POST 'localhost:8080/instructors'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+# "name": "Victtor Hugo",
+# "surname": "Loureiro",
+# "email": "vhl@alura.com.br"
+#}
+POST localhost:8080/api/instructors
+Content-Type: application/json
+
+{
+  "name": "Victtor Hugo",
+  "surname": "Loureiro",
+  "email": "vhl@alura.com.br"
+}
+
+###
+
+# curl --location --request GET 'localhost:8080/instructors'
+GET localhost:8080/api/instructors
+
+###
+
+DELETE localhost:8080/api/instructors/1
+
