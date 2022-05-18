@@ -7,5 +7,17 @@ GET http://localhost:8080/forum/listarTopicos
 Content-Type: application/json
 
 ### Teste Lista de Topicos filtrada por id
-GET http://localhost:8080/forum/listarTopico/1
+GET http://localhost:8080/forum/listarTopico/4
 Content-Type: application/json
+
+### Teste cadastro de topicos
+POST http://localhost:8080/forum/cadastrar
+Content-Type: application/json
+
+{
+  "id": 4,
+  "titulo": "Duvida sobre Kotlin",
+  "mensagem":"Nova duvida de Kotlin",
+  "idCurso": 1,
+  "idAutor": 1
+}
