@@ -1,5 +1,6 @@
 package com.kotlin.forumkotlin.service
 
+import com.kotlin.forumkotlin.dto.AtualizacaoTopicoForm
 import com.kotlin.forumkotlin.dto.TopicoForm
 import com.kotlin.forumkotlin.dto.TopicoView
 import com.kotlin.forumkotlin.mapper.FormToTopicoMapper
@@ -71,5 +72,27 @@ class TopicoService (
 
         val topico: Topico = topicos.stream().filter { it -> it.titulo == dto.titulo && it.curso.id == dto.idCurso}.findFirst().get()
         return topicoToViewMapper.map(topico)
+    }
+
+    fun atualizar(form: AtualizacaoTopicoForm): TopicoView? {
+        var topico: Topico = topicos.stream().filter { it -> it.id == form.id }.findFirst().get()
+        topicos = topicos.minus(topico).plus( Topico(
+            id = form.id,
+            titulo = form.titulo,
+            mensagem = form.mensagem,
+            autor = topico.autor,
+            curso = topico.curso,
+            respostas = topico.respostas,
+            status = topico.status,
+            dataCriacao = topico.dataCriacao
+        ))
+
+        return listarPorId(form.id)
+    }
+
+    fun deletar(id: Long): String {
+        val topico: Topico = topicos.stream().filter { it -> it.id == id }.findFirst().get()
+        topicos.minus(topico)
+        return "Tópico removido com sucesso."
     }
 }

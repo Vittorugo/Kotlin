@@ -21,3 +21,16 @@ Content-Type: application/json
   "idCurso": 1,
   "idAutor": 1
 }
+
+### Teste atualizar topico
+PUT http://localhost:8080/forum/atualizar
+Content-Type: application/json
+
+{
+  "id": 2,
+  "titulo": "Testando metodo atualizar",
+  "mensagem": "Testando putmapping"
+}
+
+### Teste Delete Topico
+DELETE http://localhost:8080/forum/deletar/3
