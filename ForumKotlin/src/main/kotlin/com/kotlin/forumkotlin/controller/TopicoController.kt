@@ -5,6 +5,7 @@ import com.kotlin.forumkotlin.dto.TopicoView
 import com.kotlin.forumkotlin.service.TopicoService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/forum")
@@ -17,5 +18,5 @@ class TopicoController ( private val service: TopicoService) {
     fun buscarPorId(@PathVariable id: Long): ResponseEntity<TopicoView> = ResponseEntity.ok(service.listarPorId(id))
 
     @PostMapping("cadastrar")
-    fun cadastrar(@RequestBody dto: TopicoForm): ResponseEntity<TopicoView> = ResponseEntity.ok(service.cadastrar(dto))
+    fun cadastrar(@RequestBody @Valid dto: TopicoForm): ResponseEntity<TopicoView> = ResponseEntity.ok(service.cadastrar(dto))
 }

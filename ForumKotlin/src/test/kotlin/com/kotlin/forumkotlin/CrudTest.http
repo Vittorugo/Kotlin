@@ -15,9 +15,9 @@ POST http://localhost:8080/forum/cadastrar
 Content-Type: application/json
 
 {
-  "id": 4,
-  "titulo": "Duvida sobre Kotlin",
-  "mensagem":"Nova duvida de Kotlin",
+  "id": 3,
+  "titulo": "Bean Validation",
+  "mensagem":"Teste Validation",
   "idCurso": 1,
   "idAutor": 1
 }
