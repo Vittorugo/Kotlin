@@ -3,6 +3,7 @@ package com.kotlin.forumkotlin.service
 import com.kotlin.forumkotlin.dto.AtualizacaoTopicoForm
 import com.kotlin.forumkotlin.dto.TopicoForm
 import com.kotlin.forumkotlin.dto.TopicoView
+import com.kotlin.forumkotlin.exception.NotFoundException
 import com.kotlin.forumkotlin.mapper.FormToTopicoMapper
 import com.kotlin.forumkotlin.mapper.TopicoToViewMapper
 import com.kotlin.forumkotlin.model.Curso
@@ -17,7 +18,8 @@ import kotlin.collections.ArrayList
 class TopicoService (
     private var topicos: List<Topico> = ArrayList(),
     private val topicoToViewMapper: TopicoToViewMapper,
-    private val topicoFormMapper: FormToTopicoMapper
+    private val topicoFormMapper: FormToTopicoMapper,
+    private val notFoundMessage: String = "Topico não encontrado!"
 ) {
 
     init {
@@ -61,7 +63,8 @@ class TopicoService (
         .collect(Collectors.toList())
 
     fun listarPorId(id: Long): TopicoView {
-        val topico: Topico = this.topicos.stream().filter { it -> it.id == id }.findFirst().get()
+        val topico: Topico = this.topicos.stream().filter { it -> it.id == id }.findFirst()
+            .orElseThrow {NotFoundException(notFoundMessage)}
         return topicoToViewMapper.map(topico)
     }
 
@@ -70,12 +73,14 @@ class TopicoService (
         novoTopico.id = (topicos.size + 1).toLong()
         topicos = this.topicos.plus(novoTopico)
 
-        val topico: Topico = topicos.stream().filter { it -> it.titulo == dto.titulo && it.curso.id == dto.idCurso}.findFirst().get()
+        val topico: Topico = topicos.stream().filter { it -> it.titulo == dto.titulo && it.curso.id == dto.idCurso}.findFirst()
+            .orElseThrow {NotFoundException(notFoundMessage)}
         return topicoToViewMapper.map(topico)
     }
 
     fun atualizar(form: AtualizacaoTopicoForm): TopicoView? {
-        var topico: Topico = topicos.stream().filter { it -> it.id == form.id }.findFirst().get()
+        var topico: Topico = topicos.stream().filter { it -> it.id == form.id }.findFirst()
+            .orElseThrow {NotFoundException(notFoundMessage)}
         topicos = topicos.minus(topico).plus( Topico(
             id = form.id,
             titulo = form.titulo,
@@ -91,7 +96,8 @@ class TopicoService (
     }
 
     fun deletar(id: Long): String {
-        val topico: Topico = topicos.stream().filter { it -> it.id == id }.findFirst().get()
+        val topico: Topico = topicos.stream().filter { it -> it.id == id }.findFirst()
+            .orElseThrow {NotFoundException(notFoundMessage)}
         topicos.minus(topico)
         return "Tópico removido com sucesso."
     }

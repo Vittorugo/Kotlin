@@ -1,9 +1,9 @@
 ### Teste Get Hello world
 
-GET http://localhost:8080/forum
+GET http://localhost:8080/forum/
 
 ### Teste List Topicos
-GET http://localhost:8080/forum/listarTopicos
+GET http://localhost:8080/forum/topicos/listarTopicos
 Content-Type: application/json
 
 ### Teste Lista de Topicos filtrada por id
@@ -16,8 +16,8 @@ Content-Type: application/json
 
 {
   "id": 3,
-  "titulo": "Bean Validation",
-  "mensagem":"Teste Validation",
+  "titulo": "",
+  "mensagem":"",
   "idCurso": 1,
   "idAutor": 1
 }
