@@ -11,7 +11,7 @@ import org.springframework.web.util.UriComponentsBuilder
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/forum/topicos")
+@RequestMapping("/topicos")
 class TopicoController ( private val service: TopicoService) {
 
     @GetMapping("listarTopicos")

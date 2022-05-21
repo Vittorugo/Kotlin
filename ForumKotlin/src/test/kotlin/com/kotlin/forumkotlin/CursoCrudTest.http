@@ -1,0 +1,20 @@
+### Teste para listar os cursos
+GET http://localhost:8080/forum/curso/listar
+
+### Teste para cadastrar os cursos
+POST http://localhost:8080/forum/curso/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Teste curso",
+  "categoria": "Teste categoria"
+}
+
+### Teste para atualizar os cursos
+PUT http://localhost:8080/forum/curso/atualizar/2
+Content-Type: application/json
+
+{
+  "nome": "Nome atualizado",
+  "categoria": "Categoria atualizada"
+}

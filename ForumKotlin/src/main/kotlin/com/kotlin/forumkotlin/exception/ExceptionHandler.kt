@@ -47,7 +47,7 @@ class ExceptionHandler {
     @ExceptionHandler(Exception::class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     fun handleServerError(
-        exception: NotFoundException,
+        exception: Exception,
         request: HttpServletRequest
     ): ErrorView {
         return ErrorView(
