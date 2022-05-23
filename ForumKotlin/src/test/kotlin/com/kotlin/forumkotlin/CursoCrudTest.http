@@ -6,12 +6,13 @@ POST http://localhost:8080/forum/curso/cadastrar
 Content-Type: application/json
 
 {
-  "nome": "Teste curso",
-  "categoria": "Teste categoria"
+  "id": 6,
+  "nome": "Teste Novo curso",
+  "categoria": "Teste Nova categoria"
 }
 
 ### Teste para atualizar os cursos
-PUT http://localhost:8080/forum/curso/atualizar/5
+PUT http://localhost:8080/forum/curso/atualizar/3
 Content-Type: application/json
 
 {

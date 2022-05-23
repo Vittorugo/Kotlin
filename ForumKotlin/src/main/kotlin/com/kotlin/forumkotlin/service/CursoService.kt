@@ -1,14 +1,19 @@
 package com.kotlin.forumkotlin.service
 
+import com.kotlin.forumkotlin.dto.CursoForm
+import com.kotlin.forumkotlin.dto.CursoView
+import com.kotlin.forumkotlin.mapper.CursoToViewMapper
+import com.kotlin.forumkotlin.mapper.FormToCursoMapper
 import com.kotlin.forumkotlin.model.Curso
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
+import java.util.stream.Collectors
 
 @Service
-class CursoService(private var cursos: List<Curso> = ArrayList()) {
+class CursoService(
+    private var cursos: List<Curso> = ArrayList(),
+    private val cursoToViewMapper: CursoToViewMapper,
+    private val formToCursoMapper: FormToCursoMapper
+) {
 
     init {
         cursos = listOf(
@@ -18,27 +23,31 @@ class CursoService(private var cursos: List<Curso> = ArrayList()) {
         )
     }
 
-    fun listar(): List<Curso> = this.cursos
+    fun listar(): List<CursoView> = this.cursos.stream().map { it -> cursoToViewMapper.map(it) }.collect(Collectors.toList())
 
     fun buscarPorId(id: Long): Curso = this.cursos.stream().filter{ it -> it.id == id }.findFirst().get()
 
-    fun cadastrar(curso: Curso): Curso {
-        curso.id = curso.id ?: (cursos.size + 1).toLong()
-        cursos = this.cursos.plus(curso)
+    fun cadastrar(cursoForm: CursoForm): CursoView {
+        cursoForm.id = cursoForm.id ?: (cursos.size + 1).toLong()
+        val novoCurso: Curso = formToCursoMapper.map(cursoForm)
+        cursos = this.cursos.plus(novoCurso)
 
-        return curso
+        val cursoView: CursoView = cursoToViewMapper.map(novoCurso)
+
+        return cursoView
     }
 
-    fun atualizar(id: Long, curso: Curso): Curso? {
+    fun atualizar(id: Long, cursoForm: CursoForm): CursoView? {
         val cursoDaBase: Curso = this.buscarPorId(id)
         cursos = this.cursos.minus(cursoDaBase)
+
         val novoCurso: Curso = Curso(
-            id = curso.id ?: (cursos.size + 1).toLong(),
-            nome = curso.nome,
-            categoria = curso.categoria
+            id = cursoForm.id ?: (cursos.size + 1).toLong(),
+            nome = cursoForm.nome,
+            categoria = cursoForm.categoria
         )
         cursos = this.cursos.plus(novoCurso)
-        return novoCurso
+        return cursoToViewMapper.map(novoCurso)
     }
 
     fun deletar(id: Long): String {

@@ -1,5 +1,7 @@
 package com.kotlin.forumkotlin.controller
 
+import com.kotlin.forumkotlin.dto.CursoForm
+import com.kotlin.forumkotlin.dto.CursoView
 import com.kotlin.forumkotlin.model.Curso
 import com.kotlin.forumkotlin.service.CursoService
 import org.springframework.http.ResponseEntity
@@ -15,17 +17,17 @@ class CursoController(
 ) {
 
     @GetMapping("listar")
-    fun listar(): ResponseEntity<List<Curso>> = ResponseEntity.ok(serviceCurso.listar())
+    fun listar(): ResponseEntity<List<CursoView>> = ResponseEntity.ok(serviceCurso.listar())
 
     @PostMapping("cadastrar")
-    fun cadastrar(@RequestBody @Valid curso: Curso, uriComponentsBuilder: UriComponentsBuilder): ResponseEntity<Curso> {
-        val novoCurso: Curso = serviceCurso.cadastrar(curso)
+    fun cadastrar(@RequestBody @Valid curso: CursoForm, uriComponentsBuilder: UriComponentsBuilder): ResponseEntity<CursoView> {
+        val novoCurso: CursoView = serviceCurso.cadastrar(curso)
         val uri: URI = uriComponentsBuilder.path("/curso/${novoCurso.id}").build().toUri()
         return ResponseEntity.created(uri).body(novoCurso)
     }
 
     @PutMapping("atualizar/{id}")
-    fun atualizar(@PathVariable id: Long, @RequestBody curso: Curso): ResponseEntity<Curso> =
+    fun atualizar(@PathVariable id: Long, @RequestBody curso: CursoForm): ResponseEntity<CursoView> =
         ResponseEntity.ok(serviceCurso.atualizar(id, curso))
 
     @DeleteMapping("deletar/{id}")
