@@ -31,7 +31,7 @@ class CursoService(private var cursos: List<Curso> = ArrayList()) {
 
     fun atualizar(id: Long, curso: Curso): Curso? {
         val cursoDaBase: Curso = this.buscarPorId(id)
-        this.cursos.minus(cursoDaBase)
+        cursos = this.cursos.minus(cursoDaBase)
         val novoCurso: Curso = Curso(
             id = curso.id ?: (cursos.size + 1).toLong(),
             nome = curso.nome,
@@ -40,5 +40,12 @@ class CursoService(private var cursos: List<Curso> = ArrayList()) {
         cursos = this.cursos.plus(novoCurso)
         return novoCurso
     }
+
+    fun deletar(id: Long): String {
+        val curso: Curso = this.buscarPorId(id)
+        cursos = cursos.minus(curso)
+        return "Curso removido com sucesso!"
+    }
+
 
 }

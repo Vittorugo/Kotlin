@@ -27,4 +27,7 @@ class CursoController(
     @PutMapping("atualizar/{id}")
     fun atualizar(@PathVariable id: Long, @RequestBody curso: Curso): ResponseEntity<Curso> =
         ResponseEntity.ok(serviceCurso.atualizar(id, curso))
+
+    @DeleteMapping("deletar/{id}")
+    fun deletar(@PathVariable id: Long): ResponseEntity<String> = ResponseEntity.ok(serviceCurso.deletar(id))
 }

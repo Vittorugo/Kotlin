@@ -11,10 +11,13 @@ Content-Type: application/json
 }
 
 ### Teste para atualizar os cursos
-PUT http://localhost:8080/forum/curso/atualizar/2
+PUT http://localhost:8080/forum/curso/atualizar/5
 Content-Type: application/json
 
 {
   "nome": "Nome atualizado",
   "categoria": "Categoria atualizada"
 }
+
+### Teste para deletear um curso
+DELETE http://localhost:8080/forum/curso/deletar/4
