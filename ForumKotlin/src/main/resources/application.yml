@@ -18,4 +18,6 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-    defer-datasource-initialization: true #A partir da versão 2.5 do spring essa prop deve ser adicionada para que o spring entenda que deve ler o arquivo na hora de inicializar o projeto.
+    #defer-datasource-initialization: true #A partir da versï¿½o 2.5 do spring essa prop deve ser adicionada para que o spring entenda que deve ler o arquivo na hora de inicializar o projeto.
+  flyway:
+    locations: classpath:db/migration

@@ -7,23 +7,22 @@ GET http://localhost:8080/forum/topicos/listarTopicos
 Content-Type: application/json
 
 ### Teste Lista de Topicos filtrada por id
-GET http://localhost:8080/forum/listarTopico/4
+GET http://localhost:8080/forum/topicos/listarTopico/2
 Content-Type: application/json
 
 ### Teste cadastro de topicos
-POST http://localhost:8080/forum/cadastrar
+POST http://localhost:8080/forum/topicos/cadastrar
 Content-Type: application/json
 
 {
-  "id": 3,
-  "titulo": "",
-  "mensagem":"",
+  "titulo": "Novo topico",
+  "mensagem":"Novo topico",
   "idCurso": 1,
   "idAutor": 1
 }
 
 ### Teste atualizar topico
-PUT http://localhost:8080/forum/atualizar
+PUT http://localhost:8080/forum/topicos/atualizar
 Content-Type: application/json
 
 {
@@ -33,4 +32,4 @@ Content-Type: application/json
 }
 
 ### Teste Delete Topico
-DELETE http://localhost:8080/forum/deletar/3
+DELETE http://localhost:8080/forum/topicos/deletar/2
