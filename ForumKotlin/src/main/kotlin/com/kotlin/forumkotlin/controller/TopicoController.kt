@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
+import javax.transaction.Transactional
 import javax.validation.Valid
 
 @RestController
@@ -21,6 +22,7 @@ class TopicoController ( private val service: TopicoService) {
     fun buscarPorId(@PathVariable id: Long): ResponseEntity<TopicoView> = ResponseEntity.ok(service.listarPorId(id))
 
     @PostMapping("cadastrar")
+    @Transactional
     fun cadastrar(@RequestBody @Valid dto: TopicoForm, uriBuilder: UriComponentsBuilder): ResponseEntity<TopicoView> {
         val topicoView: TopicoView = service.cadastrar(dto)
         val uri = uriBuilder.path("/topicos/${topicoView.id}").build().toUri()
@@ -28,9 +30,11 @@ class TopicoController ( private val service: TopicoService) {
     }
 
     @PutMapping("atualizar")
+    @Transactional
     fun atualizar(@RequestBody @Valid form: AtualizacaoTopicoForm): ResponseEntity<TopicoView> = ResponseEntity.ok(service.atualizar(form))
 
     @DeleteMapping("deletar/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     fun deletar(@PathVariable id: Long): ResponseEntity<String> = ResponseEntity.ok(service.deletar(id))
 }

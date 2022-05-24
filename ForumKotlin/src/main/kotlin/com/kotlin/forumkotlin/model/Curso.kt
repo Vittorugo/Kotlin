@@ -1,11 +1,17 @@
 package com.kotlin.forumkotlin.model
 
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
 import javax.validation.constraints.NotEmpty
 
-data class Curso (
+@Entity
+data class Curso(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
     @field:NotEmpty
-    val nome: String,
+    var nome: String,
     @field:NotEmpty
-    val categoria: String
-    )
+    var categoria: String
+)

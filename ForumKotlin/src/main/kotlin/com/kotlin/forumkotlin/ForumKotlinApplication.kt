@@ -7,5 +7,9 @@ import org.springframework.boot.runApplication
 class ForumKotlinApplication
 
 fun main(args: Array<String>) {
+
+    run {
+        println("Simulando uma API de Fórum para aperfeiçoar meus estudos em Kotlin")
+    }
     runApplication<ForumKotlinApplication>(*args)
 }

@@ -1,0 +1,2 @@
+### Teste listar usuários
+GET http://localhost:8080/forum/listar

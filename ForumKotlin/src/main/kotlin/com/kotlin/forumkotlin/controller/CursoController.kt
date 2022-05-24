@@ -4,10 +4,12 @@ import com.kotlin.forumkotlin.dto.CursoForm
 import com.kotlin.forumkotlin.dto.CursoView
 import com.kotlin.forumkotlin.model.Curso
 import com.kotlin.forumkotlin.service.CursoService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
+import javax.transaction.Transactional
 import javax.validation.Valid
 
 @RestController
@@ -20,6 +22,7 @@ class CursoController(
     fun listar(): ResponseEntity<List<CursoView>> = ResponseEntity.ok(serviceCurso.listar())
 
     @PostMapping("cadastrar")
+    @Transactional
     fun cadastrar(@RequestBody @Valid curso: CursoForm, uriComponentsBuilder: UriComponentsBuilder): ResponseEntity<CursoView> {
         val novoCurso: CursoView = serviceCurso.cadastrar(curso)
         val uri: URI = uriComponentsBuilder.path("/curso/${novoCurso.id}").build().toUri()
@@ -27,9 +30,12 @@ class CursoController(
     }
 
     @PutMapping("atualizar/{id}")
+    @Transactional
     fun atualizar(@PathVariable id: Long, @RequestBody curso: CursoForm): ResponseEntity<CursoView> =
         ResponseEntity.ok(serviceCurso.atualizar(id, curso))
 
     @DeleteMapping("deletar/{id}")
+    @Transactional
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     fun deletar(@PathVariable id: Long): ResponseEntity<String> = ResponseEntity.ok(serviceCurso.deletar(id))
 }
