@@ -6,6 +6,10 @@ GET http://localhost:8080/forum/
 GET http://localhost:8080/forum/topicos/listarTopicos
 Content-Type: application/json
 
+### Teste List Topicos filtrando por nome do curso
+GET http://localhost:8080/forum/topicos/listarTopicos?nomeDoCurso=Kotlin
+Content-Type: application/json
+
 ### Teste Lista de Topicos filtrada por id
 GET http://localhost:8080/forum/topicos/listarTopico/2
 Content-Type: application/json
@@ -17,7 +21,7 @@ Content-Type: application/json
 {
   "titulo": "Novo topico",
   "mensagem":"Novo topico",
-  "idCurso": 1,
+  "idCurso": 2,
   "idAutor": 1
 }
 

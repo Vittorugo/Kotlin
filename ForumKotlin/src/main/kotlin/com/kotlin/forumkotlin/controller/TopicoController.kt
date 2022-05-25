@@ -16,7 +16,7 @@ import javax.validation.Valid
 class TopicoController ( private val service: TopicoService) {
 
     @GetMapping("listarTopicos")
-    fun listar(): ResponseEntity<List<TopicoView>> = ResponseEntity.ok(service.listar())
+    fun listar(@RequestParam(required = false) nomeDoCurso: String?): ResponseEntity<List<TopicoView>> = ResponseEntity.ok(service.listar(nomeDoCurso))
 
     @GetMapping("listarTopico/{id}")
     fun buscarPorId(@PathVariable id: Long): ResponseEntity<TopicoView> = ResponseEntity.ok(service.listarPorId(id))
