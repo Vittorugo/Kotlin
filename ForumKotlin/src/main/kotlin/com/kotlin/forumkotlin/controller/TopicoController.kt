@@ -4,6 +4,11 @@ import com.kotlin.forumkotlin.dto.AtualizacaoTopicoForm
 import com.kotlin.forumkotlin.dto.TopicoForm
 import com.kotlin.forumkotlin.dto.TopicoView
 import com.kotlin.forumkotlin.service.TopicoService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.data.domain.Sort.DEFAULT_DIRECTION
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -16,7 +21,9 @@ import javax.validation.Valid
 class TopicoController ( private val service: TopicoService) {
 
     @GetMapping("listarTopicos")
-    fun listar(@RequestParam(required = false) nomeDoCurso: String?): ResponseEntity<List<TopicoView>> = ResponseEntity.ok(service.listar(nomeDoCurso))
+    fun listar(@RequestParam(required = false) nomeDoCurso: String?,
+               @PageableDefault(size = 2, sort = ["dataCriacao"], direction = Sort.Direction.DESC) pageable: Pageable): ResponseEntity<Page<TopicoView>> =
+        ResponseEntity.ok(service.listar(nomeDoCurso, pageable))
 
     @GetMapping("listarTopico/{id}")
     fun buscarPorId(@PathVariable id: Long): ResponseEntity<TopicoView> = ResponseEntity.ok(service.listarPorId(id))
