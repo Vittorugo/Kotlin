@@ -2,6 +2,7 @@ package com.kotlin.forumkotlin.service
 
 import com.kotlin.forumkotlin.dto.AtualizacaoTopicoForm
 import com.kotlin.forumkotlin.dto.TopicoForm
+import com.kotlin.forumkotlin.dto.TopicoPorCategoriaDto
 import com.kotlin.forumkotlin.dto.TopicoView
 import com.kotlin.forumkotlin.exception.NotFoundException
 import com.kotlin.forumkotlin.mapper.FormToTopicoMapper
@@ -55,4 +56,6 @@ class TopicoService (
         repository.deleteById(id)
         return "Tópico removido com sucesso."
     }
+
+    fun relatorio(): List<TopicoPorCategoriaDto> = repository.relatorio()
 }

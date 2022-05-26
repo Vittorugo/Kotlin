@@ -18,6 +18,10 @@ Content-Type: application/json
 GET http://localhost:8080/forum/topicos/listarTopico/2
 Content-Type: application/json
 
+### Teste Lista de relatorio
+GET http://localhost:8080/forum/topicos/relatorio
+Content-Type: application/json
+
 ### Teste cadastro de topicos
 POST http://localhost:8080/forum/topicos/cadastrar
 Content-Type: application/json

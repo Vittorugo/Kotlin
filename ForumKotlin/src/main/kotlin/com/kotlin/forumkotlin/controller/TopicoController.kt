@@ -2,8 +2,11 @@ package com.kotlin.forumkotlin.controller
 
 import com.kotlin.forumkotlin.dto.AtualizacaoTopicoForm
 import com.kotlin.forumkotlin.dto.TopicoForm
+import com.kotlin.forumkotlin.dto.TopicoPorCategoriaDto
 import com.kotlin.forumkotlin.dto.TopicoView
 import com.kotlin.forumkotlin.service.TopicoService
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
@@ -21,15 +24,18 @@ import javax.validation.Valid
 class TopicoController ( private val service: TopicoService) {
 
     @GetMapping("listarTopicos")
+    @Cacheable(value = ["topicos"])
     fun listar(@RequestParam(required = false) nomeDoCurso: String?,
                @PageableDefault(size = 2, sort = ["dataCriacao"], direction = Sort.Direction.DESC) pageable: Pageable): ResponseEntity<Page<TopicoView>> =
         ResponseEntity.ok(service.listar(nomeDoCurso, pageable))
 
     @GetMapping("listarTopico/{id}")
+    @Cacheable(value = ["topicoId"])
     fun buscarPorId(@PathVariable id: Long): ResponseEntity<TopicoView> = ResponseEntity.ok(service.listarPorId(id))
 
     @PostMapping("cadastrar")
     @Transactional
+    @CacheEvict(value = ["topicos"], allEntries = true)
     fun cadastrar(@RequestBody @Valid dto: TopicoForm, uriBuilder: UriComponentsBuilder): ResponseEntity<TopicoView> {
         val topicoView: TopicoView = service.cadastrar(dto)
         val uri = uriBuilder.path("/topicos/${topicoView.id}").build().toUri()
@@ -38,10 +44,15 @@ class TopicoController ( private val service: TopicoService) {
 
     @PutMapping("atualizar")
     @Transactional
+    @CacheEvict(value = ["topicos", "topicoId"], allEntries = true)
     fun atualizar(@RequestBody @Valid form: AtualizacaoTopicoForm): ResponseEntity<TopicoView> = ResponseEntity.ok(service.atualizar(form))
 
     @DeleteMapping("deletar/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
+    @CacheEvict(value = ["topicos, topicoId"], allEntries = true)
     fun deletar(@PathVariable id: Long): ResponseEntity<String> = ResponseEntity.ok(service.deletar(id))
+
+    @GetMapping("relatorio")
+    fun relatorio(): List<TopicoPorCategoriaDto> = service.relatorio()
 }
