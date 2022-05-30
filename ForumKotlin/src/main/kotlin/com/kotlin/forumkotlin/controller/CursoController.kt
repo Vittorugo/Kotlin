@@ -4,6 +4,8 @@ import com.kotlin.forumkotlin.dto.CursoForm
 import com.kotlin.forumkotlin.dto.CursoView
 import com.kotlin.forumkotlin.model.Curso
 import com.kotlin.forumkotlin.service.CursoService
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -19,10 +21,12 @@ class CursoController(
 ) {
 
     @GetMapping("listar")
+    @Cacheable(value = ["cursos"])
     fun listar(): ResponseEntity<List<CursoView>> = ResponseEntity.ok(serviceCurso.listar())
 
     @PostMapping("cadastrar")
     @Transactional
+    @CacheEvict(value = ["cursos"], allEntries = true)
     fun cadastrar(@RequestBody @Valid curso: CursoForm, uriComponentsBuilder: UriComponentsBuilder): ResponseEntity<CursoView> {
         val novoCurso: CursoView = serviceCurso.cadastrar(curso)
         val uri: URI = uriComponentsBuilder.path("/curso/${novoCurso.id}").build().toUri()
@@ -31,11 +35,13 @@ class CursoController(
 
     @PutMapping("atualizar/{id}")
     @Transactional
+    @CacheEvict(value = ["cursos"], allEntries = true)
     fun atualizar(@PathVariable id: Long, @RequestBody curso: CursoForm): ResponseEntity<CursoView> =
         ResponseEntity.ok(serviceCurso.atualizar(id, curso))
 
     @DeleteMapping("deletar/{id}")
     @Transactional
     @ResponseStatus(HttpStatus.NOT_FOUND)
+    @CacheEvict(value = ["cursos"], allEntries = true)
     fun deletar(@PathVariable id: Long): ResponseEntity<String> = ResponseEntity.ok(serviceCurso.deletar(id))
 }

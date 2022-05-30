@@ -5,6 +5,7 @@ GET http://localhost:8080/forum/
 ### Teste List Topicos
 GET http://localhost:8080/forum/topicos/listarTopicos
 Content-Type: application/json
+Authorization: Basic victtor@gmail.com 12345
 
 ### Teste List Topicos filtrando por nome do curso
 GET http://localhost:8080/forum/topicos/listarTopicos?nomeDoCurso=Kotlin

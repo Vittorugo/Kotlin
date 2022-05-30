@@ -13,5 +13,5 @@ interface TopicoRepository: JpaRepository<Topico, Long> {
 
     @Query("SELECT new com.kotlin.forumkotlin.dto.TopicoPorCategoriaDto(curso.categoria, count(t)) FROM Topico t JOIN t.curso curso " +
             "GROUP BY curso.categoria")
-    fun relatorio(): List<TopicoPorCategoriaDto>
+    fun relatorio(pageable: Pageable): Page<TopicoPorCategoriaDto>
 }

@@ -33,9 +33,9 @@ class TopicoService (
     }
 
     fun listarPorId(id: Long): TopicoView {
-        val topico: Topico = repository.findById(id).stream().filter { it -> it.id == id }.findFirst()
+        val topicoId: Topico = repository.findById(id).stream().filter { it -> it.id == id }.findFirst()
             .orElseThrow {NotFoundException(notFoundMessage)}
-        return topicoToViewMapper.map(topico)
+        return topicoToViewMapper.map(topicoId)
     }
 
     fun cadastrar(dto: TopicoForm): TopicoView {
@@ -57,5 +57,5 @@ class TopicoService (
         return "Tópico removido com sucesso."
     }
 
-    fun relatorio(): List<TopicoPorCategoriaDto> = repository.relatorio()
+    fun relatorio(pageable: Pageable): Page<TopicoPorCategoriaDto> = repository.relatorio(pageable)
 }

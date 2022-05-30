@@ -5,5 +5,5 @@ create table usuario(
       primary key(id)
 );
 
-insert into usuario values(1, 'Victtor', '@gmail.com');
-insert into usuario values(2, 'Hugo', '@gmail.com');
+insert into usuario values(1, 'Victtor', 'victtor@gmail.com');
+insert into usuario values(2, 'Hugo', 'hugo@gmail.com');

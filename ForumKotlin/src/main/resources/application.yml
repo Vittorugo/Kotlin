@@ -7,6 +7,8 @@ server:
 
 # H2 Database
 spring:
+  main:
+    allow-circular-references: true
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:forum
@@ -18,7 +20,7 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-    #defer-datasource-initialization: true #A partir da vers�o 2.5 do spring essa prop deve ser adicionada para que o spring entenda que deve ler o arquivo na hora de inicializar o projeto.
+    #defer-datasource-initialization: true #A partir da vers�o 2.5 do spring essa prop deve ser adicionada para que o spring entenda que deve ler o arquivo data.sql na hora de inicializar o projeto.
   flyway:
     locations: classpath:db/migration
   h2:

@@ -45,7 +45,8 @@ class TopicoController ( private val service: TopicoService) {
     @PutMapping("atualizar")
     @Transactional
     @CacheEvict(value = ["topicos", "topicoId"], allEntries = true)
-    fun atualizar(@RequestBody @Valid form: AtualizacaoTopicoForm): ResponseEntity<TopicoView> = ResponseEntity.ok(service.atualizar(form))
+    fun atualizar(@RequestBody @Valid form: AtualizacaoTopicoForm): ResponseEntity<TopicoView> =
+        ResponseEntity.ok(service.atualizar(form))
 
     @DeleteMapping("deletar/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -54,5 +55,6 @@ class TopicoController ( private val service: TopicoService) {
     fun deletar(@PathVariable id: Long): ResponseEntity<String> = ResponseEntity.ok(service.deletar(id))
 
     @GetMapping("relatorio")
-    fun relatorio(): List<TopicoPorCategoriaDto> = service.relatorio()
+    fun relatorio(@PageableDefault(size = 5, sort = ["categoria"]) pageable: Pageable): ResponseEntity<Page<TopicoPorCategoriaDto>> =
+        ResponseEntity.ok(service.relatorio(pageable))
 }
