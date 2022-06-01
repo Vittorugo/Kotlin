@@ -7,6 +7,8 @@ import com.kotlin.forumkotlin.mapper.CursoToViewMapper
 import com.kotlin.forumkotlin.mapper.FormToCursoMapper
 import com.kotlin.forumkotlin.model.Curso
 import com.kotlin.forumkotlin.repository.CursoRepository
+import org.springframework.context.annotation.Bean
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import java.util.stream.Collectors
 
@@ -14,9 +16,9 @@ import java.util.stream.Collectors
 class CursoService(
     private val repository: CursoRepository,
     private val cursoToViewMapper: CursoToViewMapper,
-    private val formToCursoMapper: FormToCursoMapper,
-    private val notFoundMessage: String = "Curso não encontrado!"
+    private val formToCursoMapper: FormToCursoMapper
 ) {
+    private val notFoundMessage: String = "Curso não encontrado!"
 
     fun listar(): List<CursoView> = repository.findAll().stream().map { it -> cursoToViewMapper.map(it) }.collect(Collectors.toList())
 

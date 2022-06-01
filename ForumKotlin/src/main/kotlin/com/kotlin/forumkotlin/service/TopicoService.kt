@@ -23,9 +23,9 @@ import kotlin.collections.ArrayList
 class TopicoService (
     private val repository: TopicoRepository,
     private val topicoToViewMapper: TopicoToViewMapper,
-    private val topicoFormMapper: FormToTopicoMapper,
-    private val notFoundMessage: String = "Topico não encontrado!"
+    private val topicoFormMapper: FormToTopicoMapper
 ) {
+    private val notFoundMessage: String = "Topico não encontrado!"
 
     fun listar(nomeDoCurso: String?, pageable: Pageable): Page<TopicoView> {
         val topicos: Page<Topico> = nomeDoCurso?.let { repository.findByCursoNome(nomeDoCurso, pageable) } ?: repository.findAll(pageable)
@@ -33,8 +33,7 @@ class TopicoService (
     }
 
     fun listarPorId(id: Long): TopicoView {
-        val topicoId: Topico = repository.findById(id).stream().filter { it -> it.id == id }.findFirst()
-            .orElseThrow {NotFoundException(notFoundMessage)}
+        val topicoId: Topico = repository.findById(id).orElseThrow { NotFoundException(notFoundMessage) }
         return topicoToViewMapper.map(topicoId)
     }
 
