@@ -5,13 +5,19 @@ import java.util.*
 fun main(args: Array<String>) {
     println("Hello World, Kafka!")
 
-    val producer: KafkaProducer<String,String> = KafkaProducer<String, String>(propertiesProducer())
-    val value = "123,444,321"
-    val record: ProducerRecord<String, String> = ProducerRecord<String, String>("ECOMMERCE_NEW_ORDER", value, value)
-    producer.send(record) { data: RecordMetadata?, exception: Exception? ->
+    val producer : KafkaProducer<String,String> = KafkaProducer<String, String>(propertiesProducer())
+    val value = "555,555,555"
+    val email = "Thanks for shopping here."
+    val record : ProducerRecord<String, String> = ProducerRecord<String, String>("ECOMMERCE_NEW_ORDER", value, value)
+    val emailRecord : ProducerRecord<String, String> = ProducerRecord<String, String>("ECOMMERCE_SEND_EMAIL",email,email)
+
+    val callback = fun (data: RecordMetadata?, exception: Exception?) {
         exception?.printStackTrace()
         println("Sucesso enviando ${data?.topic()} :::partição: ${data?.partition()} / offset: ${data?.offset()} / timestamp: ${data?.timestamp()}")
-    }.get()
+    }
+
+    producer.send(record, callback).get()
+    producer.send(emailRecord, callback).get()
 }
 
 fun propertiesProducer() : Properties{
