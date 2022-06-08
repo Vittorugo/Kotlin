@@ -6,10 +6,11 @@ fun main(args: Array<String>) {
     println("Hello World, Kafka!")
 
     val producer : KafkaProducer<String,String> = KafkaProducer<String, String>(propertiesProducer())
-    val value = "555,555,555"
+    val key = UUID.randomUUID().toString()
+    val value = "${key}555,555,555"
     val email = "Thanks for shopping here."
-    val record : ProducerRecord<String, String> = ProducerRecord<String, String>("ECOMMERCE_NEW_ORDER", value, value)
-    val emailRecord : ProducerRecord<String, String> = ProducerRecord<String, String>("ECOMMERCE_SEND_EMAIL",email,email)
+    val record : ProducerRecord<String, String> = ProducerRecord<String, String>("ECOMMERCE_NEW_ORDER", key, value)
+    val emailRecord : ProducerRecord<String, String> = ProducerRecord<String, String>("ECOMMERCE_SEND_EMAIL", key,email)
 
     val callback = fun (data: RecordMetadata?, exception: Exception?) {
         exception?.printStackTrace()
