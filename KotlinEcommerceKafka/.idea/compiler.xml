@@ -6,11 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="consoleApp" />
+        <module name="service-fraud" />
+        <module name="service-email" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="consoleApp" target="1.5" />
+      <module name="service-email" target="11" />
+      <module name="service-fraud" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

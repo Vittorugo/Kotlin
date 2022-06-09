@@ -1,7 +1,27 @@
 
-v
-Fsrc/main/kotlin/br/com/alura/ecommerce/service/FraudDetectorService.kt,a\b\aba1f8208bbc68cbc07f6ce7b76a06693ee9f5e6
-U
-%src/main/kotlin/EcommerceProductor.kt,1\0\108726c07a3abce8edaefbd6a0677b5944242d5f
+G
+src/main/kotlin/Main.kt,d\8\d83ae3847b7d408136086cc5e9e95f5f7c126ed5
+h
+8src/main/kotlin/br/com/alura/ecommerce/entities/Order.kt,7\5\7579abb93b28b50b509d157be132ec59c662b036
+>
+consoleApp.iml,2\d\2d0a3829d3520346dbe3200852a20b4ee84a84bf
+}
+Mservice-fraud/src/main/kotlin/br/com/alura/ecommerce/service/FraudDetector.kt,3\f\3fe8b714f8c58d1e2e24e50456c3a9acfe0892be
+z
+Jcommon-kafka/src/main/kotlin/br/com/alura/ecommerce/util/GsonSerializer.kt,9\1\9183a6585b84f84ef84432ccb68060c60fa3302a
+
+Ocommon-kafka/src/main/kotlin/br/com/alura/ecommerce/service/ConsumerFunction.kt,7\b\7b54c4251059f1fc3fa294d71e124628227dd97e
+D
+common-kafka/pom.xml,6\4\645e261e804ead94718b7fa1fc81b3f538554525
+O
+service-email/service-email.iml,7\f\7fd9479123e9a74686bbe2402514ce955ad56db4
+E
+service-email/pom.xml,e\0\e0dd095a2d635b7017f99b1acccd9b732e1af2bb
+E
+service-fraud/pom.xml,4\6\466b0d762778ff700cb7eb1a0328dd10797f7f1c
+C
+service-log/pom.xml,5\3\53930f26e092026a97492f813c6dfd7fd8982c48
+I
+service-new-order/pom.xml,3\e\3e47574fb605617448abae97a63710859007e535
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
